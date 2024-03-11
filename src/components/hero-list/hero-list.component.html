@@ -1,0 +1,10 @@
+<mat-grid-list class="hero-grid-list" cols="4" gutterSize="10px" rowHeight="0.5:0.4" role="list">
+  <mat-grid-tile
+    *ngFor="let hero of heroList"
+    role="listitem"
+    colspan="1"
+    rowspan="1"
+  >
+    <app-hero-card [hero]="hero"></app-hero-card>
+  </mat-grid-tile>
+</mat-grid-list>

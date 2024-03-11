@@ -1,0 +1,19 @@
+/* Estilos para el contenedor principal */
+.main {
+  background-color: #f0f0f0;
+  display: flex;
+  /* align-content: center; */
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.content {
+    margin-top: 2%;
+    text-align: center;
+    width: 90%;
+    height: auto;
+    background-color: white;
+    border-radius: 1%;
+    margin-bottom: 5%;
+}

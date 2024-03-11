@@ -1,0 +1,6 @@
+<mat-card class="hero-card" *ngIf="hero">
+  <img mat-card-image class="hero-image" [src]="hero.image.url" alt="{{ hero.name }}" />
+  <mat-card-content>
+    <p class="hero-name">{{ hero.name }}</p>
+  </mat-card-content>
+</mat-card>
