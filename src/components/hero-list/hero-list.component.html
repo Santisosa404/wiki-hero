@@ -1,10 +1,17 @@
-<mat-grid-list class="hero-grid-list" cols="4" gutterSize="10px" rowHeight="0.5:0.4" role="list">
+<mat-grid-list
+  class="hero-grid-list"
+  cols="4"
+  gutterSize="10px"
+  rowHeight="15vw"
+  role="list"
+  >
+  <!-- rowHeight="0.5:0.4" --->
   <mat-grid-tile
-    *ngFor="let hero of heroList"
+    *ngFor="let hero of heroList | async"
     role="listitem"
     colspan="1"
     rowspan="1"
   >
-    <app-hero-card [hero]="hero"></app-hero-card>
+    <app-hero-card class="hero-card-container" (click)="openHeroDetails(hero)" [hero]="hero"></app-hero-card>
   </mat-grid-tile>
 </mat-grid-list>

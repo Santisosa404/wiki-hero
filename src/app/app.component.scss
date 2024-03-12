@@ -6,14 +6,17 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  height: 100vh;
 }
 
 .content {
-    margin-top: 2%;
-    text-align: center;
-    width: 90%;
-    height: auto;
-    background-color: white;
-    border-radius: 1%;
-    margin-bottom: 5%;
+  margin-top: 2%;
+  text-align: center;
+  width: 90%;
+  height: auto;
+  background-color: white;
+  border-radius: 1%;
+  margin-bottom: 2%;
+  max-height: 80vh; /* Altura máxima del contenido */
+  overflow-y: auto; /* Agrega scroll vertical si el contenido excede la altura máxima */
 }

@@ -4,7 +4,7 @@ import {
   AngularFirestoreCollection,
   DocumentData,
 } from '@angular/fire/compat/firestore';
-import { Observable, from } from 'rxjs';
+import { BehaviorSubject, Observable, from } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import {
   Firestore,
@@ -16,6 +16,8 @@ import {
   addDoc,
   query,
   QuerySnapshot,
+  deleteDoc,
+  onSnapshot,
 } from '@angular/fire/firestore';
 import { Hero } from 'src/models/Hero';
 
@@ -25,40 +27,43 @@ import { Hero } from 'src/models/Hero';
 export class HerosService {
   // private heroCollection: AngularFirestoreCollection<any>;
   // heroList: Observable<Hero[]>;
+  private herosList : BehaviorSubject<Hero[]> = new BehaviorSubject<Hero[]>([]);
+  constructor(private firestore: Firestore) {}
 
-  constructor(private firestore: Firestore) {
+  get herosListGet() : Observable<Hero[]>{
+    return this.herosList.asObservable();
   }
 
-  // async getHeroList() : Promise<Observable<Hero[]>> {
-  //   const collectionRef = collection(this.firestore, 'heros');
-  //   return from(getDocs(collectionRef)).pipe(
-  //     map((queryListFromFire: QuerySnapshot<DocumentData>) => {
-  //       const heroList: Hero[] = [];
-  //       queryListFromFire.forEach((hero) => {
-  //         heroList.push(hero.data() as Hero);
-  //       });
-  //       return heroList;
-  //     })
-  //   );
-   
-  // }
-  getHeroList(): Observable<Hero[]> {
+  getHeroList(){
+    const collectionRef = collection(this.firestore, 'heros');
+    onSnapshot(collectionRef, (querySnapshot: QuerySnapshot<DocumentData>) => {
+      const heroes: Hero[] = [];
+      querySnapshot.forEach((doc) => {
+        const hero: Hero = { ...doc.data() as Hero };
+        //Seteo de nuevo el id debedo a que los datos no son mios propios
+        hero.id = doc.id;
+        heroes.push(hero);
+      });
+      this.herosList.next(heroes);
+    });
+  }
+
+  getHeroById(id: string) {
     const collectionRef = collection(this.firestore, 'heros');
 
-    return from(getDocs(collectionRef)).pipe(
-      // Mapea el QuerySnapshot a un array de DocumentData
-      map((querySnapshot: QuerySnapshot<DocumentData>) => {
-        const heroes: Hero[] = [];
-        querySnapshot.forEach((doc) => {
-          heroes.push(doc.data() as Hero);
-        });
-        return heroes;
-      }),
-      catchError((error) => {
-        console.error('Error al obtener la lista de héroes:', error);
-        throw error;
-      })
-    );
+    const heroDoc = doc(this.firestore, 'heros', id);
+    return heroDoc;
   }
 
+  async handleDeleteRequest(id: string) {
+    const heroById = this.getHeroById(id);
+    await this.deleteHero(heroById.id);
+    this.getHeroList();
+
+  }
+
+  async deleteHero(id: string) {
+    await deleteDoc(doc(this.firestore, 'heros', id));
+
+  }
 }
