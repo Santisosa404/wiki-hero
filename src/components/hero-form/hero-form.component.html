@@ -1,0 +1,120 @@
+<div mat-dialog-content class="new-hero">
+  <div class="top-container">
+    <h2>Create new hero</h2>
+    <div class="details-hero-img">
+      <img
+        *ngIf="heroImageStorageUrl"
+        [src]="heroImageStorageUrl"
+        alt="new-hero-image"
+      />
+      <div class="fake-img">X</div>
+    </div>
+  </div>
+  <form [formGroup]="newHeroForm">
+    <div class="bottom-container">
+      <div class="left-side side">
+        <div class="left-list list">
+          <ul>
+            <li class="form-input-container">
+              <span class="property-title">Name:</span>
+              <input
+                class="form-input"
+                type="text"
+                formControlName="name"
+              />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Real Name:</span>
+              <input
+                class="form-input"
+                type="text"
+                formControlName="realName"
+              />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Aliases:</span>
+              <textarea
+                class="form-input"
+                type=""
+                formControlName="aliases"
+              ></textarea>
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Place of Birth:</span>
+              <input
+                class="form-input"
+                type="text"
+                formControlName="placeOfBirth"
+              />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">First Appearance:</span>
+              <input
+                class="form-input"
+                type="text"
+                formControlName="firstAppareance"
+              />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Occupation:</span>
+              <input
+                class="form-input"
+                type="text"
+                formControlName="occupation"
+              />
+            </li>
+          </ul>
+        </div>
+        <div class="right-list list">
+          <ul>
+            <li class="form-input-container">
+              <span class="property-title">Add Img:</span>
+              <input
+                class="form-input"
+                type="file"
+                (change)="handleImage($event)"
+              />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Eye Color:</span>
+              <input
+                class="form-input"
+                type="text"
+                formControlName="eyeColor"
+              />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Gender:</span>
+              <input class="form-input" type="text" formControlName="gender" />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Race:</span>
+              <input class="form-input" type="text" formControlName="race" />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Height:</span>
+              <input class="form-input" type="text" formControlName="height" />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Weight:</span>
+              <input class="form-input" type="text" formControlName="weight" />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions class="actions">
+      <button
+        mat-button
+        class="accept-button"
+        type="submit"
+        (click)="handleCreateNewHero($event)"
+        >
+        Save
+      </button>
+      <button mat-button mat-dialog-close class="delete-button" >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

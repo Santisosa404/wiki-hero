@@ -1,0 +1,13 @@
+.float {
+    position: absolute;
+    z-index: 1;
+    bottom: 2vh;
+    right: 5vw;
+    .new-hero-button {
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      padding: 25px;
+    }
+  }
+  

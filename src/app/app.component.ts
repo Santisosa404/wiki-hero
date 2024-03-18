@@ -1,22 +1,8 @@
-import {
-  Component,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  inject,
-} from '@angular/core';
-import {
-  Firestore,
-  collection,
-  getDocs,
-  setDoc,
-  collectionData,
-  doc,
-  addDoc,
-} from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Component, OnInit, inject } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
+import { Observable, filter, map } from 'rxjs';
 import { Hero } from 'src/models/Hero';
-import { HerosService } from 'src/services/heros-service.service';
+import { HerosService } from 'src/services/herosService/heros.service';
 
 @Component({
   selector: 'app-root',
@@ -28,16 +14,29 @@ export class AppComponent implements OnInit {
 
   firestore = inject(Firestore);
   constructor(private heroService: HerosService) {}
-  heroList = this.heroService.herosListGet;
-
+  heroList: Hero[] | undefined;
+  filterValue: string = '';
   ngOnInit(): void {
-    console.log(this.heroService.herosListGet);
     this.heroService.getHeroList();
-    this.getData();
+    // this.getData();
+    this.heroService.herosListGet.subscribe((heroList) => {
+      this.heroList = heroList;
+    });
   }
 
-  getData() {
-    this.heroList = this.heroService.herosListGet;
-  }
-  
+  filterByName(event: any) {   
+      this.heroService.herosListGet
+        .pipe(
+          map((heros) =>
+            heros.filter((hero) =>
+              hero.name
+                .toLocaleLowerCase()
+                .includes(event.target.value.toLocaleLowerCase())
+            )
+          )
+        )
+        .subscribe((heros) => {
+          this.heroList = heros;
+        });
+    }
 }

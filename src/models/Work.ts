@@ -1,4 +1,4 @@
 export interface Work {
     occupation: string
-    base: string
+    base?: string
 }

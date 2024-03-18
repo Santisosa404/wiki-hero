@@ -19,7 +19,6 @@
       justify-content: center;
       img {
         height: auto;
-        border-radius: 50%;
         max-width: 35%;
       }
     }
@@ -38,51 +37,30 @@
       justify-content: space-around;
 
       .list {
+        width: 40%;
         ul {
           list-style-type: none;
-          padding: 0;
-
           li {
             margin-bottom: 10px;
-
+            display: flex;
+            flex-direction: column;
             span {
               font-weight: bold;
             }
-
-            &:first-child {
-              font-size: 1.2em;
-              color: #007bff; // Adjust the color as needed
-            }
+          }
+          li.form-input-container{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
           }
         }
       }
-    }
-
-    .left-side {
-      margin-right: 20px;
-    }
-
-    .right-side {
-      div {
-        ul {
-          list-style-type: none;
-          padding: 0;
-
-          li {
-            margin-bottom: 10px;
-
-            span {
-              font-weight: bold;
-            }
-
-            &:first-child {
-              font-size: 1.2em;
-              color: #007bff;
-            }
-          }
-        }
+      .right-list.list {
+        padding-left: 10%;
       }
     }
+
+   
   }
 
   .actions {
@@ -116,6 +94,19 @@
 
     .edit-button:hover {
       background-color: #2196f3;
+    }
+
+    .accept-button{
+      background-color: #64f6a1;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .accept-button:hover {
+      background-color: #49dc86;
     }
   }
 }

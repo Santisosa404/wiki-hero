@@ -6,7 +6,7 @@
       <img [src]="heroData?.image?.url" [alt]="heroData?.name + '-image'" />
     </div>
   </div>
-  <div class="bottom-container">
+  <div class="bottom-container" *ngIf="!isEditing">
     <div class="left-side side">
       <div class="left-list list">
         <ul>
@@ -24,7 +24,7 @@
           </li>
           <li>
             <span class="property-title">First Appearance:</span>
-            {{ heroData?.biography?.firstAsppearance }}
+            {{ heroData?.biography?.firstAppareance }}
           </li>
           <li>
             <span class="property-title">Occupation:</span>
@@ -58,9 +58,101 @@
       </div>
     </div>
   </div>
-  <div mat-dialog-actions class="actions">
-    <button mat-button class="edit-button">Edit</button>
-    <button mat-button class="delete-button" (click)="deleteById(heroData!.id)">Remove</button>
+  <form *ngIf="isEditing" [formGroup]="heroForm">
+    <div class="bottom-container">
+      <div class="left-side side">
+        <div class="left-list list">
+          <ul>
+            <li class="form-input-container">
+              <span class="property-title">Real Name:</span>
+              <input
+                class="form-input"
+                type="text"
+                formControlName="realName"
+              />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Aliases:</span>
+              <textarea class="form-input" type="" formControlName="aliases" ></textarea>
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Place of Birth:</span>
+              <input
+                class="form-input"
+                type="text"
+                formControlName="placeOfBirth"
+              />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">First Appearance:</span>
+              <input
+                class="form-input"
+                type="text"
+                formControlName="firstAppareance"
+              />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Occupation:</span>
+              <input
+                class="form-input"
+                type="text"
+                formControlName="occupation"
+              />
+            </li>
+          </ul>
+        </div>
+        <div class="right-list list">
+          <ul>
+            <li class="form-input-container">
+              <span class="property-title">Eye Color:</span>
+              <input
+                class="form-input"
+                type="text"
+                formControlName="eyeColor"
+              />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Gender:</span>
+              <input class="form-input" type="text" formControlName="gender" />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Race:</span>
+              <input class="form-input" type="text" formControlName="race" />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Height:</span>
+              <input class="form-input" type="text" formControlName="height" />
+            </li>
+            <li class="form-input-container">
+              <span class="property-title">Weight:</span>
+              <input class="form-input" type="text" formControlName="weight" />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions class="actions" *ngIf="isEditing">
+      <button
+        mat-button
+        class="accept-button"
+        type="submit"
+        (click)="handleSubmit($event)"
+      >
+        Save
+      </button>
+      <button mat-button class="delete-button" (click)="changeToEdit()">
+        Cancel
+      </button>
+    </div>
+  </form>
+
+  <div mat-dialog-actions class="actions" *ngIf="!isEditing">
+    <button mat-button class="edit-button" (click)="changeToEdit()">
+      Edit
+    </button>
+    <button mat-button class="delete-button" (click)="deleteById(heroData!.id)">
+      Remove
+    </button>
   </div>
 </div>
 
@@ -68,8 +160,20 @@
   <div mat-dialog-content class="mat-content">
     <h2 mat-dialog-title>Are you sure you want to remove this hero?</h2>
     <div mat-dialog-actions class="actions">
-      <button mat-button class="accept-button" mat-dialog-close="{{doRemove}}">Yes</button>
-      <button mat-button class="delete-button" mat-dialog-close="{{!doRemove}}">No</button>
+      <button
+        mat-button
+        class="accept-button"
+        mat-dialog-close="{{ doRemove }}"
+      >
+        Yes
+      </button>
+      <button
+        mat-button
+        class="delete-button"
+        mat-dialog-close="{{ !doRemove }}"
+      >
+        No
+      </button>
     </div>
   </div>
 </ng-template>

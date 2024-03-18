@@ -1,9 +1,13 @@
 <div class="main">
-
-  <div class="content">
-
-    <app-hero-list [heroList]="heroList" ></app-hero-list>
-    
+  <div class="main-title-div">
+    <h1 class="main-title">Welcome to Wiki Hero</h1>
+    <input placeholder="Filter By Name" class="search-input" type="search" (input)="filterByName($event)" >
   </div>
-
+  <div class="content">
+    <app-create-hero-button/>
+    <app-hero-list [heroList]="heroList" *ngIf="heroList && heroList.length > 0 else noData"/>
+    <ng-template #noData >
+      <H1>No Data</H1>
+    </ng-template>
+  </div>
 </div>

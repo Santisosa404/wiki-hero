@@ -4,5 +4,4 @@ export interface Appearance {
     height: string
     weight: string
     eyeColor: string
-    hairColor: string
 }
