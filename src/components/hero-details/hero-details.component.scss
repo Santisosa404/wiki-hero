@@ -4,6 +4,9 @@
 .mat-content {
   height: 100%;
   max-height: none;
+  span{
+    font-size: 1.5vw;
+  }
   .top-container {
     display: flex;
     flex-direction: column;
@@ -69,7 +72,7 @@
     flex-direction: row;
 
     .delete-button {
-      background-color: #e57373;
+      background-color: #ff3c4c;
       color: #fff;
       padding: 10px;
       border: none;
@@ -79,11 +82,11 @@
     }
 
     .delete-button:hover {
-      background-color: #f44336;
+      background-color: #a51330;
     }
 
     .edit-button {
-      background-color: #64b5f6;
+      background-color: #4b7cfd;
       color: #fff;
       padding: 10px 15px;
       border: none;
@@ -93,11 +96,11 @@
     }
 
     .edit-button:hover {
-      background-color: #2196f3;
+      background-color: #4b7bff;
     }
 
     .accept-button{
-      background-color: #64f6a1;
+      background-color: #39ba67;
       color: #fff;
       padding: 10px 15px;
       border: none;
@@ -106,7 +109,7 @@
       transition: background-color 0.3s ease;
     }
     .accept-button:hover {
-      background-color: #49dc86;
+      background-color: #39ba66dc;
     }
   }
 }

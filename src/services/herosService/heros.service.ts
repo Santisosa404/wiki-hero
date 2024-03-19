@@ -71,11 +71,8 @@ export class HerosService {
 
   async handleCreateHeroWithImage(imageAsBlob: Blob, imageName: string, newHero : Hero){
     const imageUrl = await this.storageService.handleUploadImageAndUrl(imageAsBlob, imageName);
-    console.log(imageUrl, ' imageUrl on heroService');
     newHero = {...newHero, image:{url: imageUrl}};
-    console.log(newHero, 'newHero with photo');
     this.createHero(newHero);
-    
   }
 
   async createHero(newHero : Hero){

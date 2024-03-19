@@ -7,7 +7,9 @@
     <app-create-hero-button/>
     <app-hero-list [heroList]="heroList" *ngIf="heroList && heroList.length > 0 else noData"/>
     <ng-template #noData >
+      <!-- TODO Poner no data img -->
       <H1>No Data</H1>
     </ng-template>
   </div>
 </div>
+<ngx-ui-loader></ngx-ui-loader>

@@ -11,23 +11,23 @@
       <div class="left-list list">
         <ul>
           <li>
-            <span class="property-title">Real Name:</span>
+            <span class="span-title">Real Name:</span>
             {{ heroData?.biography?.realName }}
           </li>
           <li>
-            <span class="property-title">Aliases:</span>
+            <span class="span-title">Aliases:</span>
             {{ heroData?.biography?.aliases }}
           </li>
           <li>
-            <span class="property-title">Place of Birth:</span>
+            <span class="span-title">Place of Birth:</span>
             {{ heroData?.biography?.placeOfBirth }}
           </li>
           <li>
-            <span class="property-title">First Appearance:</span>
+            <span class="span-title">First Appearance:</span>
             {{ heroData?.biography?.firstAppareance }}
           </li>
           <li>
-            <span class="property-title">Occupation:</span>
+            <span class="span-title">Occupation:</span>
             {{ heroData?.work?.occupation }}
           </li>
         </ul>
@@ -35,23 +35,23 @@
       <div class="right-list list">
         <ul>
           <li>
-            <span class="property-title">Eye Color:</span>
+            <span class="span-title">Eye Color:</span>
             {{ heroData?.appearance?.eyeColor }}
           </li>
           <li>
-            <span class="property-title">Gender:</span>
+            <span class="span-title">Gender:</span>
             {{ heroData?.appearance?.gender }}
           </li>
           <li>
-            <span class="property-title">Race:</span>
+            <span class="span-title">Race:</span>
             {{ heroData?.appearance?.race }}
           </li>
           <li>
-            <span class="property-title">Height:</span>
+            <span class="span-title">Height:</span>
             {{ heroData?.appearance?.height }}
           </li>
           <li>
-            <span class="property-title">Weight:</span>
+            <span class="span-title">Weight:</span>
             {{ heroData?.appearance?.weight }}
           </li>
         </ul>
@@ -64,36 +64,44 @@
         <div class="left-list list">
           <ul>
             <li class="form-input-container">
-              <span class="property-title">Real Name:</span>
+              <span class="span-title">Real Name:</span>
               <input
+                required
                 class="form-input"
                 type="text"
                 formControlName="realName"
               />
             </li>
             <li class="form-input-container">
-              <span class="property-title">Aliases:</span>
-              <textarea class="form-input" type="" formControlName="aliases" ></textarea>
+              <span class="span-title">Aliases:</span>
+              <textarea
+                class="form-input"
+                type=""
+                formControlName="aliases"
+              ></textarea>
             </li>
             <li class="form-input-container">
-              <span class="property-title">Place of Birth:</span>
+              <span class="span-title">Place of Birth:</span>
               <input
+                required
                 class="form-input"
                 type="text"
                 formControlName="placeOfBirth"
               />
             </li>
             <li class="form-input-container">
-              <span class="property-title">First Appearance:</span>
+              <span class="span-title">First Appearance:</span>
               <input
+                required
                 class="form-input"
                 type="text"
                 formControlName="firstAppareance"
               />
             </li>
             <li class="form-input-container">
-              <span class="property-title">Occupation:</span>
+              <span class="span-title">Occupation:</span>
               <input
+                required
                 class="form-input"
                 type="text"
                 formControlName="occupation"
@@ -104,28 +112,49 @@
         <div class="right-list list">
           <ul>
             <li class="form-input-container">
-              <span class="property-title">Eye Color:</span>
+              <span class="span-title">Eye Color:</span>
               <input
+                required
                 class="form-input"
                 type="text"
                 formControlName="eyeColor"
               />
             </li>
             <li class="form-input-container">
-              <span class="property-title">Gender:</span>
-              <input class="form-input" type="text" formControlName="gender" />
+              <span class="span-title">Gender:</span>
+              <input
+                required
+                class="form-input"
+                type="text"
+                formControlName="gender"
+              />
             </li>
             <li class="form-input-container">
-              <span class="property-title">Race:</span>
-              <input class="form-input" type="text" formControlName="race" />
+              <span class="span-title">Race:</span>
+              <input
+                required
+                class="form-input"
+                type="text"
+                formControlName="race"
+              />
             </li>
             <li class="form-input-container">
-              <span class="property-title">Height:</span>
-              <input class="form-input" type="text" formControlName="height" />
+              <span class="span-title">Height:</span>
+              <input
+                required
+                class="form-input"
+                type="text"
+                formControlName="height"
+              />
             </li>
             <li class="form-input-container">
-              <span class="property-title">Weight:</span>
-              <input class="form-input" type="text" formControlName="weight" />
+              <span class="span-title">Weight:</span>
+              <input
+                required
+                class="form-input"
+                type="text"
+                formControlName="weight"
+              />
             </li>
           </ul>
         </div>
@@ -138,20 +167,20 @@
         type="submit"
         (click)="handleSubmit($event)"
       >
-        Save
+        <span>Save</span>
       </button>
       <button mat-button class="delete-button" (click)="changeToEdit()">
-        Cancel
+        <span>Cancel</span>
       </button>
     </div>
   </form>
 
   <div mat-dialog-actions class="actions" *ngIf="!isEditing">
     <button mat-button class="edit-button" (click)="changeToEdit()">
-      Edit
+      <span>Edit</span>
     </button>
     <button mat-button class="delete-button" (click)="deleteById(heroData!.id)">
-      Remove
+      <span>Remove</span>
     </button>
   </div>
 </div>
@@ -165,14 +194,14 @@
         class="accept-button"
         mat-dialog-close="{{ doRemove }}"
       >
-        Yes
+        <span>Yes</span>
       </button>
       <button
         mat-button
         class="delete-button"
         mat-dialog-close="{{ !doRemove }}"
       >
-        No
+        <span>No</span>
       </button>
     </div>
   </div>

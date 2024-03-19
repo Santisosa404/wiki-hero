@@ -28,5 +28,4 @@ export class StorageService {
     return await getDownloadURL(storageRef);
   }
 
-  async handleCreateHeroWithImage() {}
 }

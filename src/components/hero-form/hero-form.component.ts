@@ -7,27 +7,37 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Hero } from 'src/models/Hero';
 import { HerosService } from 'src/services/herosService/heros.service';
-import { StorageService } from 'src/services/storageService/storage.service';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 @Component({
   selector: 'app-hero-form',
   templateUrl: './hero-form.component.html',
   styleUrls: ['./hero-form.component.scss'],
   standalone: true,
-  imports: [MatDialogModule, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    MatDialogModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+  ],
 })
 export class HeroFormComponent {
   heroImageStorageUrl: string | undefined;
   heroImageFile: File | undefined;
   newHeroForm: FormGroup;
   haveImage: boolean = false;
+  loading: boolean = false;
+
   constructor(
     private herosService: HerosService,
     public formBuild: FormBuilder,
-    private storageService: StorageService
+    private loader: NgxUiLoaderService,
+    public modalDialog: MatDialog
   ) {
     this.newHeroForm = this.formBuild.group({
       realName: ['', Validators.required],
@@ -47,6 +57,8 @@ export class HeroFormComponent {
   async handleCreateNewHero(event: any) {
     event.preventDefault();
     if (this.newHeroForm.valid) {
+      this.loader.start();
+      this.loading = true;
       if (this.haveImage && this.heroImageFile) {
         const newHero: Hero = this.getHeroFromForm();
         this.createHeroWithImage(this.newHeroForm.getRawValue().name, newHero);
@@ -54,6 +66,8 @@ export class HeroFormComponent {
         const newHero: Hero = this.getHeroFromForm();
         await this.herosService.createHero(newHero);
       }
+      this.modalDialog.closeAll();
+      this.loader.stop();
     }
   }
 
@@ -65,7 +79,7 @@ export class HeroFormComponent {
       id: uuidv4(),
       biography: {
         realName: heroValueFromForm.realName,
-        aliases: heroValueFromForm.aliases,
+        aliases: this.arrayFromTextArea(heroValueFromForm.aliases),
         placeOfBirth: heroValueFromForm.placeOfBirth,
         firstAppareance: heroValueFromForm.firstAppareance,
       },
@@ -101,5 +115,11 @@ export class HeroFormComponent {
   handleImage(event: any) {
     this.haveImage = true;
     this.heroImageFile = event.target.files[0];
+  }
+
+  arrayFromTextArea(textAreaValue: string) {
+    const textAreaArray: string[] = textAreaValue.trim().split(/[,\s]+/);
+    const aliasFromTextArea = textAreaArray.filter((alia) => alia !== '');
+    return aliasFromTextArea;
   }
 }

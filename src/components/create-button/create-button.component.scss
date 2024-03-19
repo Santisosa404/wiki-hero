@@ -7,7 +7,23 @@
       border: none;
       border-radius: 50%;
       display: flex;
-      padding: 25px;
+      padding: 30%;
+      background: #FFB90D;
+      color: white;
+      transition: transform 0.2s ease;
+      &:hover {
+        transform: scale(1.1);
+      }
+      &:active {
+        transform: scale(0.9);
+      }
+      mat-icon{
+        font-size: 4vw;
+        width: auto;
+        height: auto;
+        transition: opacity 0.2s ease;
+      
+      }
     }
   }
   

@@ -10,11 +10,12 @@ import { HerosService } from 'src/services/herosService/heros.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeroCardComponent } from 'src/components/hero-card/hero-card.component';
 import { HeroDetailsComponent } from 'src/components/hero-details/hero-details.component';
-import { FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { CreateButtonComponent } from 'src/components/create-button/create-button.component';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 @NgModule({
   declarations: [AppComponent],
   providers: [HerosService],
@@ -33,7 +34,8 @@ import { CreateButtonComponent } from 'src/components/create-button/create-butto
     ReactiveFormsModule,
     MatIconModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    NgxUiLoaderModule,
   ],
 })
 export class AppModule {}

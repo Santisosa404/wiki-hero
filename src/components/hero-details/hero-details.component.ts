@@ -19,6 +19,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Hero } from 'src/models/Hero';
 import { HerosService } from 'src/services/herosService/heros.service';
 
@@ -27,7 +28,7 @@ import { HerosService } from 'src/services/herosService/heros.service';
   templateUrl: './hero-details.component.html',
   styleUrls: ['./hero-details.component.scss'],
   standalone: true,
-  imports: [MatDialogModule,CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [MatDialogModule, CommonModule, FormsModule, ReactiveFormsModule],
 })
 export class HeroDetailsComponent implements OnInit {
   @ViewChild('removeHeroTemplate')
@@ -41,7 +42,8 @@ export class HeroDetailsComponent implements OnInit {
     private herosService: HerosService,
     public modalDialog: MatDialog,
     public modaDialogRef: MatDialogRef<any>,
-    private formBuild: FormBuilder
+    private formBuild: FormBuilder,
+    private loader: NgxUiLoaderService
   ) {
     this.heroForm = this.formBuild.group({
       realName: ['', Validators.required],
@@ -79,11 +81,11 @@ export class HeroDetailsComponent implements OnInit {
   deleteById(heroId: string) {
     this.modalDialog
       .open(this.removeHeroTemplate, {})
-      .afterClosed()
-      .subscribe((result) => {
+      .afterClosed().subscribe((result) => {
         if (result === 'true') {
+          this.loader.start();
           this.herosService.handleDeleteRequest(heroId).then(() => {
-            //TODO Poner loading
+            this.loader.stop();
             this.modalDialog.closeAll();
           });
         }
@@ -94,14 +96,17 @@ export class HeroDetailsComponent implements OnInit {
     //Para que no recarge la pagina
     event.preventDefault();
     if (this.heroForm.valid) {
+      this.loader.start();
       this.herosService
         .handleEdit(this.getHeroFromForm())
         .then(() => {
           //TODO Poner loading
           this.modalDialog.closeAll();
+          this.loader.stop();
         })
         .catch((error) => {
           this.modalDialog.closeAll();
+          this.loader.stop();
         });
     }
   }
@@ -116,9 +121,15 @@ export class HeroDetailsComponent implements OnInit {
         ...this.heroData!.biography,
         realName:
           heroValueFromForm.realName || this.heroData!.biography.realName,
-        aliases: heroValueFromForm.aliases || this.heroData!.biography.aliases,
-        firstAppareance: heroValueFromForm.firstAppareance || this.heroData!.biography.firstAppareance,
-        placeOfBirth: heroValueFromForm.placeOfBirth || this.heroData!.biography.placeOfBirth
+        aliases: this.arrayFromTextArea(
+          heroValueFromForm.aliases || this.heroData!.biography.aliases
+        ),
+        firstAppareance:
+          heroValueFromForm.firstAppareance ||
+          this.heroData!.biography.firstAppareance,
+        placeOfBirth:
+          heroValueFromForm.placeOfBirth ||
+          this.heroData!.biography.placeOfBirth,
       },
       appearance: {
         ...this.heroData!.appearance,
@@ -136,5 +147,15 @@ export class HeroDetailsComponent implements OnInit {
       },
     };
     return editedHero;
+  }
+
+  arrayFromTextArea(textAreaValue: string) {
+    try {
+      const textAreaArray: string[] = textAreaValue.trim().split(/[,\s]+/);
+      const aliasFromTextArea = textAreaArray.filter((alia) => alia !== '');
+      return aliasFromTextArea;      
+    } catch (error) {
+      return [textAreaValue];
+    }
   }
 }

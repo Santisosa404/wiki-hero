@@ -1,17 +1,50 @@
 .hero-card {
+  overflow: hidden;
+  position: relative;
   width: 90%;
-  background-color: #d8e5ef;
-  border-radius: 8px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1); 
-  transition: box-shadow 0.3s ease-in-out; 
-}
-.hero-image {
-  width: 100%;
-  max-height: 85%;
-  object-fit: fill;
-}
+  color: white;
+  background-color: rgb(253, 56, 74);
 
-.hero-name {
-  font-weight: bold;
-  margin-top: 8px;
+  .hero-image {
+    transition: transform 0.3s ease;
+    width: 100%;
+    aspect-ratio: 1;
+  }
+
+  .card-content {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 20%;
+    background-color: rgb(253, 56, 74);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: none;
+  }
+
+  .hero-name {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    .hero-image {
+      transform: scale(1.1);
+    }
+
+    .card-content {
+      opacity: 0.9;
+      display: block;
+    }
+
+    .hero-name {
+      opacity: 1;
+    }
+  }
 }

@@ -28,14 +28,10 @@ export class HeroListComponent {
   constructor(public modalDialog: MatDialog) {}
 
   openHeroDetails(hero: Hero) {
-    console.log(hero, 'open');
     this.modalDialog.open(HeroDetailsComponent, {
       width: '65vw',
       maxWidth: '70vw',
       data: { hero },
     });
   }
-
-
-
 }

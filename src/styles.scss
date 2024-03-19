@@ -2,18 +2,21 @@
 
 $white: #ffffff;
 
-$theme-colors: (
-    "light":      #d8e5ef,
-    "dark":       #00080b,
-    "primary":    #2a418c,
-    "secondary":  #b5726a,
-    "info":       #e0ae9b,
-    "success":    #2fac6a,
-    "warning":    #e4ce2d,
-    "danger":     #f22618,
-);
+$superGreen: #39ba67;
+$superRed: #ff3c4c;
+$superYellow: #ffb90d;
+$superBlue: #4b7cfd;
+$superDarkRed: #a51330;
+$superOrange: #fe8000;
+$superLightBlue: #4b7bff;
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

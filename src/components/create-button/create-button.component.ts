@@ -12,22 +12,19 @@ import { HeroFormComponent } from '../hero-form/hero-form.component';
   imports: [MatIconModule],
 })
 export class CreateButtonComponent {
-  constructor(
-    public modalDialog: MatDialog,
-    private herosService: HerosService
-  ) {}
+  constructor(public modalDialog: MatDialog) {}
 
   handleCreateHero() {
     this.modalDialog
-      .open(HeroFormComponent, { width: '65vw', maxWidth: '70vw' })
+      .open(HeroFormComponent, {
+        width: '65vw',
+        maxWidth: '70vw',
+        maxHeight:'95vh'
+      })
       .afterClosed()
-      .subscribe((result) => {
-        if (result === 'true') {
-          this.herosService.handleDeleteRequest('').then(() => {
-            //TODO Poner loading
-            this.modalDialog.closeAll();
-          });
-        }
+      .subscribe(() => {
+        //TODO Poner loading
+        this.modalDialog.closeAll();
       });
   }
 }
